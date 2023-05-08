@@ -2,7 +2,7 @@ import reader
 import astar
 
 start = "Barcelona"
-end = "Vic"
+end = "Tremp"
 
 
 def main():

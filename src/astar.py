@@ -3,10 +3,10 @@ from math import radians, sin, cos, sqrt, asin
 
 # Credits: https://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
 def haversine(city1, city2):
-    aux1 = city1.getLongitude()
-    aux2 = city1.getLatitude()
-    aux3 = city2.getLongitude()
-    aux4 = city2.getLatitude()
+    aux1 = city1.longitude
+    aux2 = city1.latitude
+    aux3 = city2.longitude
+    aux4 = city2.latitude
     lon1, lat1, lon2, lat2 = map(radians, [aux1, aux2, aux3, aux4])
 
     dlon = lon2 - lon1
@@ -19,25 +19,25 @@ def haversine(city1, city2):
 
 def in_list(nodes, name):
     for node in nodes:
-        if node.getName == name:
+        if node.name == name:
             return True
     return False
 
 
 def astar(cities, start, end):
-    cities[start].setValue(0)
+    cities[start].value = 0
     nodes = [cities[start]]
     visited = {}
 
     while len(nodes) > 0:
         current = nodes.pop()
         # Mark as visited
-        visited[current.getName()] = True
-        if current.getName() == end:
-            print("acabado")
+        visited[current.name] = True
+        if current.name == end:
+            printPath(cities, end)
             return
 
-        for conName in current.getConnections():
+        for conName in current.connections:
             connection = current.getConnection(conName)
             to = connection.getTo()
             if to in visited:
@@ -46,15 +46,28 @@ def astar(cities, start, end):
             dist_child_end = haversine(cities[to], cities[end])
             dist_curr_child = current.getValue() + connection.getDistance()
             dist = dist_curr_child + dist_child_end
-            actual_dist = cities[to].getValue()
+            actual_dist = cities[to].approximation
 
-            if dist < actual_dist and in_list(nodes, to):
-                cities[to].setValue(dist)
+            # Case we don't want to update the node
+            if dist >= actual_dist and in_list(nodes, to):
                 continue
 
-            cities[to].setValue(int(dist))
+            cities[to].value = dist_curr_child
+            cities[to].approximation = dist
+            cities[to].directConnection = current.getName()
+
+            # Case we want to update the node
+            if dist < actual_dist and in_list(nodes, to):
+                continue
+            # Case we want to add the node
             nodes.append(cities[to])
 
+        nodes = sorted(nodes, key=lambda c: c.approximation, reverse=True)
 
 
-
+def printPath(nodes, name):
+    if nodes[name].directConnection == "":
+        print("Sortim de " + name)
+        return
+    printPath(nodes, nodes[name].directConnection)
+    print(" -> " + name)

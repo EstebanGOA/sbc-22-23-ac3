@@ -4,14 +4,16 @@ class City:
 
     def __init__(self, name, address, country, latitude, longitude):
         # When building the path the connection
-        # self.directConnection = None
+        self.directConnection = ""
         self.value = sys.maxsize
+        self.approximation = sys.maxsize
         self.name = name
         self.address = address
         self.country = country
         self.latitude = latitude
         self.longitude = longitude
         self.connections = {}
+
 
     def getName(self):
         return self.name
