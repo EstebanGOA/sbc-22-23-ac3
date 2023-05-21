@@ -1,4 +1,4 @@
-# AC3 - Algoritmos de búsqueda
+# AC4 - Algoritmos de búsqueda
 ## Ejecución
 Para ejecutar el programa, se debe tener instalada la versión 3.10 de Python. Además, se recomienda el uso de PyCharm para su ejecución. 
 
@@ -14,5 +14,5 @@ python main.py
 En principio no debería ser necesario instalar ninguna librería adicional, ya que todas las librerías utilizadas son librerías estándar de Python.
 
 ## Autores
-- David Deu Castella (david.deu@students.salle.url.edu)
+- David Deu Castells (david.deu@students.salle.url.edu)
 - Esteban Ariel Gómez Agüero (estebanariel.gomez@salle.url.edu)
