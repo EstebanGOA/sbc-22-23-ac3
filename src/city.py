@@ -42,5 +42,7 @@ class City:
     def getValue(self):
         return self.value
 
+    def getDistanceBetween(self, city):
+        return self.connections[city.getName()].getDistance()
 
 
