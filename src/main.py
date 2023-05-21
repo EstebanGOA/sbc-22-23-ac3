@@ -1,6 +1,6 @@
 import reader
 import astar
-from backtracking import DFS
+from dfs import DFS
 
 start = "Barcelona"
 end = "Reus"
