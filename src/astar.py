@@ -35,6 +35,7 @@ def astar(cities, start, end):
         visited[current.name] = True
         if current.name == end:
             printPath(cities, end)
+            print()
             return
 
         for conName in current.connections:
@@ -67,7 +68,7 @@ def astar(cities, start, end):
 
 def printPath(nodes, name):
     if nodes[name].directConnection == "":
-        print("Sortim de " + name)
+        print("Sortim de " + name, end="")
         return
     printPath(nodes, nodes[name].directConnection)
-    print(" -> " + name)
+    print(" -> " + name, end="")
